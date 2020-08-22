@@ -9,12 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Imposto.Core.Domain;
+using System.Configuration;
 
 namespace TesteImposto
 {
     public partial class FormImposto : Form
     {
         private Pedido pedido = new Pedido();
+        private string _pathXml = ConfigurationManager.AppSettings["PathXmlNotaFiscal"];
 
         public FormImposto()
         {
@@ -48,7 +50,7 @@ namespace TesteImposto
 
         private void buttonGerarNotaFiscal_Click(object sender, EventArgs e)
         {            
-            NotaFiscalService service = new NotaFiscalService();
+            NotaFiscalService service = new NotaFiscalService(_pathXml);
             pedido.EstadoOrigem = txtEstadoOrigem.Text;
             pedido.EstadoDestino = txtEstadoDestino.Text;
             pedido.NomeCliente = textBoxNomeCliente.Text;

@@ -17,11 +17,13 @@ namespace Imposto.Core.Domain
         public string EstadoDestino { get; set; }
         public string EstadoOrigem { get; set; }
 
-        public IEnumerable<NotaFiscalItem> ItensDaNotaFiscal { get; set; }
+        public IReadOnlyCollection<NotaFiscalItem> ItensDaNotaFiscal { get { return this._ItensDaNotaFiscal.ToArray(); } }
+
+        private List<NotaFiscalItem> _ItensDaNotaFiscal;
 
         public NotaFiscal()
         {
-            ItensDaNotaFiscal = new List<NotaFiscalItem>();
+            _ItensDaNotaFiscal = new List<NotaFiscalItem>();
         }
 
         public void EmitirNotaFiscal(Pedido pedido)
@@ -152,7 +154,11 @@ namespace Imposto.Core.Domain
                 }
                 notaFiscalItem.NomeProduto = itemPedido.NomeProduto;
                 notaFiscalItem.CodigoProduto = itemPedido.CodigoProduto;
-            }            
+
+                _ItensDaNotaFiscal.Add(notaFiscalItem);
+            }         
+            
+
         }
     }
 }
