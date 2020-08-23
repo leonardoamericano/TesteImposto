@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Imposto.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Imposto.Core.Domain
+namespace Imposto.Core.Entities
 {
-    public class NotaFiscalItem
+    public class NotaFiscalItem: Entity
     {
-        public int Id { get; set; }
         public int IdNotaFiscal { get; set; }
         public string Cfop { get; set; }
         public string TipoIcms { get; set; }

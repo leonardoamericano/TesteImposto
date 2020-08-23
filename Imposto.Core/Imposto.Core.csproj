@@ -36,6 +36,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Xml, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,16 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandResult.cs" />
+    <Compile Include="Commands\EmissaoNotaFiscalCommand.cs" />
     <Compile Include="Data\MinhaDbConnection.cs" />
     <Compile Include="Data\NotaFiscalRepository.cs" />
-    <Compile Include="Domain\NotaFiscal.cs" />
-    <Compile Include="Domain\NotaFiscalItem.cs" />
-    <Compile Include="Domain\Pedido.cs" />
-    <Compile Include="Domain\PedidoItem.cs" />
+    <Compile Include="Entities\NotaFiscal.cs" />
+    <Compile Include="Entities\NotaFiscalItem.cs" />
+    <Compile Include="Entities\PedidoItem.cs" />
+    <Compile Include="Handlers\NotaFiscalHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\INotaFiscalRepository.cs" />
     <Compile Include="Repositories\IObterConexaoBD.cs" />
     <Compile Include="Service\NotaFiscalService.cs" />
+    <Compile Include="ValueObjects\EstadoDestino.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -64,6 +68,7 @@
       <Name>Imposto.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

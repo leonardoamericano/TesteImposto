@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Imposto.Core.Domain;
+using Imposto.Core.Entities;
 using System.Configuration;
 using Imposto.Core.Data;
 using System.Data.Common;
@@ -16,12 +16,14 @@ using Imposto.Core.Repositories;
 using Imposto.Shared;
 using Imposto.Shared.Enums;
 using System.Collections;
+using Imposto.Core.Commands;
+using Imposto.Core.Handlers;
 
 namespace TesteImposto
 {
     public partial class FormImposto : Form
     {
-        private Pedido pedido = new Pedido();
+        private EmissaoNotaFiscalCommand pedido = new EmissaoNotaFiscalCommand();
         private string _pathXml = ConfigurationManager.AppSettings["PathXmlNotaFiscal"];
 
         public FormImposto()
@@ -61,13 +63,11 @@ namespace TesteImposto
             bool abort = false;
             if (this.cbbEstadoOrigem.SelectedItem == null)
             {
-                txtEstadoOrigem.Text = "";
                 this.lblOrigem.Visible = true;
                 abort = true;
             }
             if (this.cbbEstadoDestino.SelectedItem == null)
             {
-                txtEstadoDestino.Text = "";
                 this.lblDestino.Visible = true;
                 abort = true;
             }
@@ -77,9 +77,9 @@ namespace TesteImposto
                 return;
             }
 
-            NotaFiscalService service = new NotaFiscalService(new NotaFiscalRepository(conn), _pathXml);
-            pedido.EstadoOrigem = txtEstadoOrigem.Text;
-            pedido.EstadoDestino = txtEstadoDestino.Text;
+            NotaFiscalHandler service = new NotaFiscalHandler(new NotaFiscalRepository(conn), _pathXml);
+            pedido.EstadoOrigem = (EEstados)cbbEstadoOrigem.SelectedItem;
+            pedido.EstadoDestino = new Imposto.Core.ValueObjects.EstadoDestino((EEstados)cbbEstadoDestino.SelectedItem);
             pedido.NomeCliente = textBoxNomeCliente.Text;
 
             DataTable table = (DataTable)dataGridViewPedidos.DataSource;
@@ -96,7 +96,7 @@ namespace TesteImposto
                     });
             }
 
-            var retorno = service.GerarNotaFiscal(pedido);
+            var retorno = service.Handle(pedido);
 
             if (retorno.Success)
             {
@@ -111,11 +111,9 @@ namespace TesteImposto
         {
             this.cbbEstadoDestino.SelectedIndex = -1;
             this.cbbEstadoOrigem.SelectedIndex = -1;
-            txtEstadoOrigem.Text = "";
-            txtEstadoDestino.Text = "";
             textBoxNomeCliente.Text = "";
             dataGridViewPedidos.DataSource = GetTablePedidos();
-            pedido = new Pedido();
+            pedido = new EmissaoNotaFiscalCommand();
             this.lblDestino.Visible = false;
             this.lblOrigem.Visible = false;
         }
@@ -131,30 +129,15 @@ namespace TesteImposto
 
         private void cbbEstadoOrigem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbbEstadoOrigem.SelectedItem == null)
-            {
-                txtEstadoOrigem.Text = "";
-            }
-            else
-            {
-                txtEstadoOrigem.Text = ((EEstados)this.cbbEstadoOrigem.SelectedItem).ToString();
+            if (this.cbbEstadoOrigem.SelectedItem != null)
                 this.lblOrigem.Visible = false;
-            }
 
         }
 
         private void cbbEstadoDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbbEstadoDestino.SelectedItem == null)
-            {
-                txtEstadoDestino.Text = "";
-            }
-            else
-            {
-                txtEstadoDestino.Text = ((EEstados)this.cbbEstadoDestino.SelectedItem).ToString();
+            if (this.cbbEstadoDestino.SelectedItem != null)
                 this.lblDestino.Visible = false;
-            }
-
         }
     }
 }

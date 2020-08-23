@@ -1,4 +1,4 @@
-﻿using Imposto.Core.Domain;
+﻿using Imposto.Core.Entities;
 using Imposto.Core.Repositories;
 using System;
 using System.Collections.Generic;

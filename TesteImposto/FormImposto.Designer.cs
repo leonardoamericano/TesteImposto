@@ -32,8 +32,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNomeCliente = new System.Windows.Forms.TextBox();
-            this.txtEstadoOrigem = new System.Windows.Forms.TextBox();
-            this.txtEstadoDestino = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridViewPedidos = new System.Windows.Forms.DataGridView();
             this.buttonGerarNotaFiscal = new System.Windows.Forms.Button();
@@ -78,22 +76,6 @@
             this.textBoxNomeCliente.Size = new System.Drawing.Size(939, 20);
             this.textBoxNomeCliente.TabIndex = 3;
             // 
-            // txtEstadoOrigem
-            // 
-            this.txtEstadoOrigem.Location = new System.Drawing.Point(388, 31);
-            this.txtEstadoOrigem.Name = "txtEstadoOrigem";
-            this.txtEstadoOrigem.Size = new System.Drawing.Size(646, 20);
-            this.txtEstadoOrigem.TabIndex = 4;
-            this.txtEstadoOrigem.Visible = false;
-            // 
-            // txtEstadoDestino
-            // 
-            this.txtEstadoDestino.Location = new System.Drawing.Point(388, 53);
-            this.txtEstadoDestino.Name = "txtEstadoDestino";
-            this.txtEstadoDestino.Size = new System.Drawing.Size(646, 20);
-            this.txtEstadoDestino.TabIndex = 5;
-            this.txtEstadoDestino.Visible = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -128,7 +110,7 @@
             this.cbbEstadoOrigem.Location = new System.Drawing.Point(95, 32);
             this.cbbEstadoOrigem.Name = "cbbEstadoOrigem";
             this.cbbEstadoOrigem.Size = new System.Drawing.Size(121, 21);
-            this.cbbEstadoOrigem.TabIndex = 9;
+            this.cbbEstadoOrigem.TabIndex = 4;
             this.cbbEstadoOrigem.SelectedIndexChanged += new System.EventHandler(this.cbbEstadoOrigem_SelectedIndexChanged);
             // 
             // cbbEstadoDestino
@@ -137,7 +119,7 @@
             this.cbbEstadoDestino.Location = new System.Drawing.Point(95, 57);
             this.cbbEstadoDestino.Name = "cbbEstadoDestino";
             this.cbbEstadoDestino.Size = new System.Drawing.Size(121, 21);
-            this.cbbEstadoDestino.TabIndex = 10;
+            this.cbbEstadoDestino.TabIndex = 5;
             this.cbbEstadoDestino.SelectedIndexChanged += new System.EventHandler(this.cbbEstadoDestino_SelectedIndexChanged);
             // 
             // lblOrigem
@@ -174,8 +156,6 @@
             this.Controls.Add(this.buttonGerarNotaFiscal);
             this.Controls.Add(this.dataGridViewPedidos);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtEstadoDestino);
-            this.Controls.Add(this.txtEstadoOrigem);
             this.Controls.Add(this.textBoxNomeCliente);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -195,8 +175,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxNomeCliente;
-        private System.Windows.Forms.TextBox txtEstadoOrigem;
-        private System.Windows.Forms.TextBox txtEstadoDestino;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dataGridViewPedidos;
         private System.Windows.Forms.Button buttonGerarNotaFiscal;

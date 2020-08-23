@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Imposto.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Imposto.Core.Domain
+namespace Imposto.Core.Entities
 {
-    public class PedidoItem
+    public class PedidoItem : Entity
     {
         public string NomeProduto { get; set; }
         public string CodigoProduto { get; set; }        
