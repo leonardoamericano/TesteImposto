@@ -125,6 +125,13 @@ namespace Imposto.Core.Domain
                 {
                     notaFiscalItem.Cfop = "6.010";
                 }
+
+                //Correção do bug Execício 5
+                if ((this.EstadoOrigem == "SP") || (this.EstadoDestino == "RO"))
+                {
+                    notaFiscalItem.Cfop = "6.006";
+                }
+
                 if (this.EstadoDestino == this.EstadoOrigem)
                 {
                     notaFiscalItem.TipoIcms = "60";
