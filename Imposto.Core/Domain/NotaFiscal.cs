@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flunt.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Imposto.Core.Domain
 {
-    public class NotaFiscal
+    public class NotaFiscal: Notifiable
     {
         public int Id { get; set; }
         public int NumeroNotaFiscal { get; set; }

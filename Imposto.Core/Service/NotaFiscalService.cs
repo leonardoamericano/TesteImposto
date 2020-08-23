@@ -1,6 +1,9 @@
-﻿using Imposto.Core.Data;
+﻿using Flunt.Notifications;
+using Imposto.Core.Commands;
+using Imposto.Core.Data;
 using Imposto.Core.Domain;
 using Imposto.Core.Repositories;
+using Imposto.Shared.Commands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +14,7 @@ using System.Xml.Serialization;
 
 namespace Imposto.Core.Service
 {
-    public class NotaFiscalService
+    public class NotaFiscalService : Notifiable
     {
         public string PathXml { get; private set; }
         private readonly INotaFiscalRepository _repository;
@@ -22,14 +25,34 @@ namespace Imposto.Core.Service
             this.PathXml = pathXml;
         }
 
-        public void GerarNotaFiscal(Domain.Pedido pedido)
+        public ICommandResult GerarNotaFiscal(Domain.Pedido pedido)
         {
+            //Fail Fast Validation
+            pedido.Validate();
+            if (pedido.Invalid)
+            {
+                AddNotifications(pedido);
+                return new CommandResult(false, "Não foi possível gravar a Nota Fiscal");
+            }
+
             NotaFiscal notaFiscal = new NotaFiscal();
             notaFiscal.EmitirNotaFiscal(pedido);
+
+            //Agrupar as Validações
+            AddNotifications(notaFiscal, pedido);
+
+            //Checar as notificações
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível gravar a Nota Fiscal");
+
             //Gerar XML
             GravarXml(notaFiscal);
             //Salvar as informações
-            _repository.CreateNotaFiscal(notaFiscal);
+            //_repository.CreateNotaFiscal(notaFiscal);
+
+            //Retornar informações
+            return new CommandResult(true, "Nota Fiscal armazenada com sucesso");
+
         }
 
         private void GravarXml(NotaFiscal notaFiscal)

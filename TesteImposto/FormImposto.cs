@@ -13,6 +13,9 @@ using System.Configuration;
 using Imposto.Core.Data;
 using System.Data.Common;
 using Imposto.Core.Repositories;
+using Imposto.Shared;
+using Imposto.Shared.Enums;
+using System.Collections;
 
 namespace TesteImposto
 {
@@ -55,6 +58,25 @@ namespace TesteImposto
         {
             IObterConexaoBD conn = new MinhaDbConnection();
 
+            bool abort = false;
+            if (this.cbbEstadoOrigem.SelectedItem == null)
+            {
+                txtEstadoOrigem.Text = "";
+                this.lblOrigem.Visible = true;
+                abort = true;
+            }
+            if (this.cbbEstadoDestino.SelectedItem == null)
+            {
+                txtEstadoDestino.Text = "";
+                this.lblDestino.Visible = true;
+                abort = true;
+            }
+
+            if (abort)
+            {
+                return;
+            }
+
             NotaFiscalService service = new NotaFiscalService(new NotaFiscalRepository(conn), _pathXml);
             pedido.EstadoOrigem = txtEstadoOrigem.Text;
             pedido.EstadoDestino = txtEstadoDestino.Text;
@@ -67,15 +89,72 @@ namespace TesteImposto
                 pedido.ItensDoPedido.Add(
                     new PedidoItem()
                     {
-                        Brinde = Convert.ToBoolean(row["Brinde"]),
+                        Brinde = Convert.ToBoolean((row["Brinde"]==null)?1:0),
                         CodigoProduto =  row["Codigo do produto"].ToString(),
                         NomeProduto = row["Nome do produto"].ToString(),
                         ValorItemPedido = Convert.ToDouble(row["Valor"].ToString())            
                     });
             }
 
-            service.GerarNotaFiscal(pedido);
-            MessageBox.Show("Operação efetuada com sucesso");
+            var retorno = service.GerarNotaFiscal(pedido);
+
+            if (retorno.Success)
+            {
+                MessageBox.Show(retorno.Message, "Sucesso");
+                LimparCampos();
+            }
+            else
+                MessageBox.Show(retorno.Message, "Atenção!");
+        }
+
+        private void LimparCampos()
+        {
+            this.cbbEstadoDestino.SelectedIndex = -1;
+            this.cbbEstadoOrigem.SelectedIndex = -1;
+            txtEstadoOrigem.Text = "";
+            txtEstadoDestino.Text = "";
+            textBoxNomeCliente.Text = "";
+            dataGridViewPedidos.DataSource = GetTablePedidos();
+            pedido = new Pedido();
+            this.lblDestino.Visible = false;
+            this.lblOrigem.Visible = false;
+        }
+
+        private void FormImposto_Load(object sender, EventArgs e)
+        {
+            this.cbbEstadoOrigem.DataSource = Util<EEstados>.EnumToList();
+            this.cbbEstadoOrigem.SelectedIndex = -1;
+
+            this.cbbEstadoDestino.DataSource = Util<EEstados>.EnumToList();
+            this.cbbEstadoDestino.SelectedIndex = -1;
+        }
+
+        private void cbbEstadoOrigem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cbbEstadoOrigem.SelectedItem == null)
+            {
+                txtEstadoOrigem.Text = "";
+            }
+            else
+            {
+                txtEstadoOrigem.Text = ((EEstados)this.cbbEstadoOrigem.SelectedItem).ToString();
+                this.lblOrigem.Visible = false;
+            }
+
+        }
+
+        private void cbbEstadoDestino_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cbbEstadoDestino.SelectedItem == null)
+            {
+                txtEstadoDestino.Text = "";
+            }
+            else
+            {
+                txtEstadoDestino.Text = ((EEstados)this.cbbEstadoDestino.SelectedItem).ToString();
+                this.lblDestino.Visible = false;
+            }
+
         }
     }
 }
