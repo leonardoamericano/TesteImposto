@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\MinhaDbConnection.cs" />
     <Compile Include="Data\NotaFiscalRepository.cs" />
     <Compile Include="Domain\NotaFiscal.cs" />
     <Compile Include="Domain\NotaFiscalItem.cs" />
     <Compile Include="Domain\Pedido.cs" />
     <Compile Include="Domain\PedidoItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\INotaFiscalRepository.cs" />
+    <Compile Include="Repositories\IObterConexaoBD.cs" />
     <Compile Include="Service\NotaFiscalService.cs" />
   </ItemGroup>
   <ItemGroup />

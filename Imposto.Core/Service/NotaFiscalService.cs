@@ -1,4 +1,6 @@
-﻿using Imposto.Core.Domain;
+﻿using Imposto.Core.Data;
+using Imposto.Core.Domain;
+using Imposto.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,9 +14,11 @@ namespace Imposto.Core.Service
     public class NotaFiscalService
     {
         public string PathXml { get; private set; }
+        private readonly INotaFiscalRepository _repository;
 
-        public NotaFiscalService(string pathXml)
+        public NotaFiscalService(INotaFiscalRepository repository, string pathXml)
         {
+            _repository = repository;
             this.PathXml = pathXml;
         }
 
@@ -22,7 +26,10 @@ namespace Imposto.Core.Service
         {
             NotaFiscal notaFiscal = new NotaFiscal();
             notaFiscal.EmitirNotaFiscal(pedido);
+            //Gerar XML
             GravarXml(notaFiscal);
+            //Salvar as informações
+            _repository.CreateNotaFiscal(notaFiscal);
         }
 
         private void GravarXml(NotaFiscal notaFiscal)

@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Imposto.Core.Domain;
 using System.Configuration;
+using Imposto.Core.Data;
+using System.Data.Common;
+using Imposto.Core.Repositories;
 
 namespace TesteImposto
 {
@@ -49,8 +52,10 @@ namespace TesteImposto
         }
 
         private void buttonGerarNotaFiscal_Click(object sender, EventArgs e)
-        {            
-            NotaFiscalService service = new NotaFiscalService(_pathXml);
+        {
+            IObterConexaoBD conn = new MinhaDbConnection();
+
+            NotaFiscalService service = new NotaFiscalService(new NotaFiscalRepository(conn), _pathXml);
             pedido.EstadoOrigem = txtEstadoOrigem.Text;
             pedido.EstadoDestino = txtEstadoDestino.Text;
             pedido.NomeCliente = textBoxNomeCliente.Text;

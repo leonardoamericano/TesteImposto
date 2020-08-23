@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteImposto", "TesteImposto\TesteImposto.csproj", "{B477192F-814E-4710-8DBC-244AD89157C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imposto.Core", "Imposto.Core\Imposto.Core.csproj", "{2339C0B3-1E95-4CD3-BFBA-64B377857016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imposto.Tests", "Tests\Imposto.Tests\Imposto.Tests.csproj", "{705A3CDA-16D9-4335-8CF7-554891EB901A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{2339C0B3-1E95-4CD3-BFBA-64B377857016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2339C0B3-1E95-4CD3-BFBA-64B377857016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2339C0B3-1E95-4CD3-BFBA-64B377857016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705A3CDA-16D9-4335-8CF7-554891EB901A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705A3CDA-16D9-4335-8CF7-554891EB901A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705A3CDA-16D9-4335-8CF7-554891EB901A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705A3CDA-16D9-4335-8CF7-554891EB901A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33198584-A243-4DD5-AA81-F419DD63F5CB}
 	EndGlobalSection
 EndGlobal
