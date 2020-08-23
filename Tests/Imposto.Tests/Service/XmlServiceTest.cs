@@ -3,7 +3,7 @@
 namespace Imposto.Tests.Service
 {
     [TestClass]
-    public class NotaFiscalServiceTest
+    public class XmlServiceTest
     {
         [TestMethod]
         public void TestMethod1()

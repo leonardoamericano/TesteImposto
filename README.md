@@ -13,3 +13,5 @@ Exercício 5 - CFOP SP e RO para 6.006
 Exercício 6 - Corrigir os bugs da tela
 
 Exercício 7 - Regra de desconto para região sudeste
+
+Exercício 8 - Melhoria da complexidade ciclomática

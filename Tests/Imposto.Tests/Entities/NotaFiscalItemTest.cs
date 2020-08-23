@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Imposto.Tests.Domain
+namespace Imposto.Tests.Entities
 {
     [TestClass]
-    public class PedidoItemTest
+    public class NotaFiscalItemTest
     {
         [TestMethod]
         public void TestMethod1()
