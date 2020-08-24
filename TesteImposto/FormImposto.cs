@@ -87,13 +87,13 @@ namespace TesteImposto
             foreach (DataRow row in table.Rows)
             {
                 pedido.ItensDoPedido.Add(
-                    new PedidoItem()
-                    {
-                        Brinde = Convert.ToBoolean((row["Brinde"]==null)?1:0),
-                        CodigoProduto =  row["Codigo do produto"].ToString(),
-                        NomeProduto = row["Nome do produto"].ToString(),
-                        ValorItemPedido = Convert.ToDouble(row["Valor"].ToString())            
-                    });
+                    new PedidoItem(
+                        row["Nome do produto"].ToString(),
+                        row["Codigo do produto"].ToString(),
+                        Convert.ToDouble(row["Valor"].ToString()),
+                        Convert.ToBoolean((row["Brinde"] == null) ? 1 : 0)
+                        )
+                    );
             }
 
             var retorno = service.Handle(pedido);

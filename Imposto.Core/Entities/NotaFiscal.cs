@@ -24,7 +24,15 @@ namespace Imposto.Core.Entities
         public List<NotaFiscalItem> ItensDaNotaFiscal { get; set; }
 
         //construtor sem parametros exigido pelo serialize
-        public NotaFiscal() { }
+        public NotaFiscal() {
+            AddNotifications(new Contract()
+                .Requires()
+                .IsGreaterThan(NumeroNotaFiscal, 0, "NotaFiscal.NumeroNotaFiscal", "O Numero da Nota Fiscal deve ser maior que 0")
+                .IsGreaterThan(Serie, 0, "NotaFiscal.Serie", "O Numero da Nota Fiscal deve ser maior que 0")
+                .HasMinLen(NomeCliente, 3, "NotaFiscal.NomeCliente", "O Nome do Cliente não pode ter menos de 3 caracteres")
+                .IsNotNull(EstadoOrigem, "NotaFiscal.EstadoOrigem", "O Campo EstadoOrigem é obrigatório")
+            );
+        }
 
         public NotaFiscal(
             int numeroNotaFiscal,
@@ -40,11 +48,15 @@ namespace Imposto.Core.Entities
             EstadoDestino = estadoDestino;
             EstadoOrigem = estadoOrigem;
 
+            AddNotifications(estadoDestino);
+
             AddNotifications(new Contract()
                 .Requires()
                 .IsGreaterThan(NumeroNotaFiscal, 0, "NotaFiscal.NumeroNotaFiscal", "O Numero da Nota Fiscal deve ser maior que 0")
                 .IsGreaterThan(Serie, 0,"NotaFiscal.Serie", "O Numero da Nota Fiscal deve ser maior que 0")
                 .HasMinLen(NomeCliente, 3, "NotaFiscal.NomeCliente", "O Nome do Cliente não pode ter menos de 3 caracteres")
+                .IsNotNull(estadoOrigem, "NotaFiscal.EstadoOrigem", "O Campo EstadoOrigem é obrigatório")
+                .AreNotEquals(estadoOrigem.ToString(), EEstados.Selecione.ToString(),"NotaFiscal.EstadoOrigem", "O Campo EstadoOrigem Precisa ser um estado válido")
             );
 
             ItensDaNotaFiscal = new List<NotaFiscalItem>();

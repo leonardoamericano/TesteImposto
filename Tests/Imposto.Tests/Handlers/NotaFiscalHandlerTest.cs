@@ -15,8 +15,6 @@ namespace Imposto.Tests.Handlers
     [TestClass]
     public class NotaFiscalHandlerTest
     {
-        private NotaFiscal _nota;
-        private NotaFiscalItem _notaFiscalItem;
         private INotaFiscalRepository _repository;
         private EmissaoNotaFiscalCommand _pedido = new EmissaoNotaFiscalCommand();
 

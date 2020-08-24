@@ -11,8 +11,8 @@ namespace Imposto.Core.Repositories
 {
     public interface IObterConexaoBD
     {
-        SqlConnection ObterConexaoDB();
-        SqlConnection Conectar();
+        IDbConnection ObterConexaoDB();
+        IDbConnection Conectar();
         void Desconectar();
     }
 }

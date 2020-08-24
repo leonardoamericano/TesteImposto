@@ -29,8 +29,11 @@ namespace Imposto.Core.Commands
         {
             AddNotifications(new Contract()
                 .Requires()
-                .HasMinLen(NomeCliente, 3, "Pedido.NomeCliente", "Nome deve conter no mínimo 3 caracteres.")
-                .HasMaxLen(NomeCliente, 50, "Pedido.NomeCliente", "Nome deve conter até 50 caracteres.")
+                .HasMinLen(NomeCliente, 3, "EmissaoNotaFiscalCommand.NomeCliente", "Nome deve conter no mínimo 3 caracteres.")
+                .HasMaxLen(NomeCliente, 50, "EmissaoNotaFiscalCommand.NomeCliente", "Nome deve conter até 50 caracteres.")
+                .IsNotNull(EstadoOrigem, "EmissaoNotaFiscalCommand.EstadoOrigem", "O Campo EstadoOrigem é obrigatório")
+                .AreNotEquals(EstadoOrigem.ToString(), EEstados.Selecione.ToString(), "EmissaoNotaFiscalCommand.EstadoOrigem", "O Campo EstadoOrigem Precisa ser um estado válido")
+                .IsNotNull(EstadoDestino, "EmissaoNotaFiscalCommand.EstadoDestino", "O Campo EstadoDestino é obrigatório")
             );
         }
     }

@@ -1,4 +1,5 @@
-﻿using Imposto.Core.ValueObjects;
+﻿using Flunt.Validations;
+using Imposto.Core.ValueObjects;
 using Imposto.Shared.Entities;
 using Imposto.Shared.Enums;
 using System;
@@ -22,7 +23,14 @@ namespace Imposto.Core.Entities
         public double ValorIpi { get; set; }
         public double ValorDesconto { get; set; }
 
-        public NotaFiscalItem(){}
+        public NotaFiscalItem(){
+            AddNotifications(new Contract()
+                .Requires()
+                .HasMinLen(NomeProduto, 3, "NotaFiscalItem.NomeProduto", "O Campo NomeProduto não pode ter menos de 3 caracteres")
+                .HasMinLen(CodigoProduto, 3, "NotaFiscalItem.CodigoProduto", "O Campo CodigoProduto não pode ter menos de 3 caracteres")
+                .IsNotNull(Origem, "NotaFiscalItem.EstadoOrigem", "O Campo EstadoOrigem é obrigatório")
+            );
+        }
 
         private EEstados Origem;
         private EstadoDestino Destino;
@@ -33,6 +41,16 @@ namespace Imposto.Core.Entities
             Destino = destino;
             this.NomeProduto = nomeProduto;
             this.CodigoProduto = codigoProduto;
+
+            AddNotifications(new Contract()
+                .Requires()
+                .HasMinLen(NomeProduto, 3, "NotaFiscalItem.NomeProduto", "O Campo NomeProduto não pode ter menos de 3 caracteres")
+                .HasMinLen(CodigoProduto, 3, "NotaFiscalItem.CodigoProduto", "O Campo CodigoProduto não pode ter menos de 3 caracteres")
+                .IsNotNull(Origem, "NotaFiscalItem.EstadoOrigem", "O Campo EstadoOrigem é obrigatório")
+                .AreNotEquals(Origem.ToString(), EEstados.Selecione.ToString(), "NotaFiscalItem.EstadoOrigem", "O Campo EstadoOrigem Precisa ser um estado válido")
+                .IsGreaterThan(valorItemPedido, 0, "NotaFiscalItem.ValorItemPedido", "O Campo valorItemPedido deve ser maior que zero")
+            );
+            AddNotifications(Destino);
 
             this.CalcularAlicotas(valorItemPedido, brinde);
         }

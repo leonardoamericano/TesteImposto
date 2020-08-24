@@ -1,4 +1,6 @@
-﻿using Imposto.Core.Entities;
+﻿using Flunt.Notifications;
+using Flunt.Validations;
+using Imposto.Core.Entities;
 using Imposto.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,13 +13,21 @@ using System.Threading.Tasks;
 
 namespace Imposto.Core.Data
 {
-    public class NotaFiscalRepository : INotaFiscalRepository
+    public class NotaFiscalRepository : Notifiable, INotaFiscalRepository
     {
-        private SqlConnection db = null;
+        private IDbConnection db = null;
 
         public NotaFiscalRepository(IObterConexaoBD conexaoBD)
         {
-            this.db = conexaoBD.ObterConexaoDB();
+            AddNotifications(new Contract()
+                .Requires()
+                .IsNotNull(conexaoBD, "conexaoBD", "conexaoBD é obrigatório")
+            );
+            try
+            {
+                this.db = conexaoBD.ObterConexaoDB();
+            }
+            catch { }
         }
 
         public void CreateNotaFiscal(NotaFiscal notaFiscal)
@@ -36,7 +46,7 @@ namespace Imposto.Core.Data
             DbCommand command = new SqlCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "[dbo].[P_NOTA_FISCAL]";
-            command.Connection = db;
+            command.Connection = (DbConnection)db;
 
             SqlParameter param1 = new SqlParameter("@pId", 0);
             command.Parameters.Add(param1);
@@ -63,7 +73,7 @@ namespace Imposto.Core.Data
         {
             foreach (var item in notaFiscalItem)
             {
-                SqlCommand command = new SqlCommand("[dbo].[P_NOTA_FISCAL_ITEM]", db);
+                SqlCommand command = new SqlCommand("[dbo].[P_NOTA_FISCAL_ITEM]", (SqlConnection)db);
 
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add(new SqlParameter("@pId", SqlDbType.Int)).Value = 0;

@@ -1,3 +1,4 @@
+using Imposto.Core.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Imposto.Tests.Entities
@@ -6,9 +7,23 @@ namespace Imposto.Tests.Entities
     public class PedidoItemTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ShouldReturnErrorWhenPedidoItemIsInvalid()
         {
-            Assert.Fail();
+            var obj = new PedidoItem();
+
+            Assert.IsTrue(obj.Invalid);
+        }
+
+        [TestMethod]
+        public void ShouldReturnSuccessWhenPedidoItemIsValid()
+        {
+            var obj = new PedidoItem(
+                "Nome do produto",
+                "123456",
+                10,
+                false);
+
+            Assert.IsTrue(obj.Valid);
         }
     }
 }

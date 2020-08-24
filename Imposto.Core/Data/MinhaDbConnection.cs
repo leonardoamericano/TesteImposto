@@ -4,18 +4,19 @@ using System.Text;
 using System.Data.SqlClient;
 using Imposto.Core.Repositories;
 using System.Data.Common;
+using System.Data;
 
 namespace Imposto.Core.Data
 {
     public class MinhaDbConnection : IObterConexaoBD
     {
-        private SqlConnection connection = new SqlConnection();
+        private IDbConnection connection = new SqlConnection();
         public MinhaDbConnection()
         {
             connection.ConnectionString = @"Data Source=local\SQLEXPRESS;Initial Catalog=Teste;Integrated Security=True";
         }
 
-        public SqlConnection Conectar()
+        public IDbConnection Conectar()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
                 connection.Open();
@@ -29,7 +30,7 @@ namespace Imposto.Core.Data
                 connection.Close();
         }
 
-        public SqlConnection ObterConexaoDB()
+        public IDbConnection ObterConexaoDB()
         {
             return connection;
         }

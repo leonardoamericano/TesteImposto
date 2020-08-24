@@ -12,11 +12,12 @@ namespace Imposto.Core.ValueObjects
 {
     public class EstadoDestino : ValueObject
     {
+        private string _match = "(AC|AL|AP|AM|BA|CE|DF|GO|ES|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SP|SC|SE|TO)";
         public EstadoDestino()
         {
             AddNotifications(new Contract()
                 .Requires()
-                .Matchs(UF.ToString(), "(AC|AL|AP|AM|BA|CE|DF|GO|ES|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SP|SC|SE|TO)", "EstadoDestino.UF", "")
+                .Matchs(UF.ToString(), _match, "EstadoDestino.UF", "")
             );
         }
 
@@ -26,7 +27,7 @@ namespace Imposto.Core.ValueObjects
 
             AddNotifications(new Contract()
                 .Requires()
-                .Matchs(UF.ToString(), "(AC|AL|AP|AM|BA|CE|DF|GO|ES|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SP|SC|SE|TO)", "EstadoDestino.UF", "")
+                .Matchs(UF.ToString(), _match, "EstadoDestino.UF", "")
             );
         }
 
