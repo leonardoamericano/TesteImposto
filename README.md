@@ -30,3 +30,5 @@ Exercício 10 - Analise
 	Exercício 7: Criada a variável de desconto com persistencia no XML e na base de dados;
 	Exercício 8: Código refatorado e reestruturado para aplicar os padrões DDD e SOLID;
 	Exercício 9: Foi criado um projeto para a implementação de testes unitários para o projeto Imposto.core.
+
+Questão 2 - Console app com a busca da stream e testes unitários no projeto de teste;
