@@ -14,11 +14,11 @@ namespace ConsoleApp
             Stream stream = new Stream("aoAbBABacfeu");
             BuscarVogal buscarVogal = new BuscarVogal();
 
-            char resultado = buscarVogal.UnicaAposConsoante(stream);
+            var resultado = buscarVogal.UnicaAposConsoante(stream);
 
             Console.WriteLine(resultado);
 
-            var resultadoEsperado = 'e';
+            var resultadoEsperado = "e";
 
             Console.WriteLine(resultado == resultadoEsperado ? "CORRETO" : $"INCORRETO {resultado} != {resultadoEsperado}");
 

@@ -11,7 +11,7 @@ namespace ConsoleApp
         /// termino da leitura da stream.Voce tera acesso a leitura da stream através dos
         /// métodos de interface fornecidos ao termino do enunciado.
         /// </summary>
-        public char UnicaAposConsoante(Stream input)
+        public string UnicaAposConsoante(Stream input)
         {
             const string vogais = @"AEIOU";
             const string consoantes = @"BCDFGHJKLMNPQRSTVWXYZ";
@@ -43,7 +43,12 @@ namespace ConsoleApp
                 isConsoante = false;
             }
 
-            return vogalUnica;
+            if(vogalUnica == new char())
+            {
+                return "Caractere não encontrado";
+            }
+
+            return vogalUnica.ToString();
         }
     }
 }

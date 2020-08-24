@@ -19,7 +19,7 @@ namespace Imposto.Tests.ConsoleApp
             var buscarVogal = new BuscarVogal();
             var resultado = buscarVogal.UnicaAposConsoante(new Stream(imput));
 
-            Assert.AreNotEqual('e', resultado);
+            Assert.AreEqual("Caractere não encontrado", resultado);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace Imposto.Tests.ConsoleApp
             var buscarVogal = new BuscarVogal();
             var resultado = buscarVogal.UnicaAposConsoante(new Stream(imput));
 
-            Assert.AreEqual('e', resultado);
+            Assert.AreEqual("e", resultado);
         }
 
     }
