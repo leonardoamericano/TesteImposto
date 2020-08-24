@@ -54,7 +54,7 @@ namespace Imposto.Core.Handlers
             if (_XmlService.Gravar(notaFiscal))
             {
                 //Salvar as informações
-                //_repository.CreateNotaFiscal(notaFiscal);
+                _repository.CreateNotaFiscal(notaFiscal);
             }
 
             //Retornar informações
