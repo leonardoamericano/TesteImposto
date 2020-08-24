@@ -9,6 +9,8 @@ namespace Imposto.Shared.Enums
 {
     public enum EEstados
     {
+        [Description("Selecione")]
+        Selecione,
         [Description("Acre")]
         AC,
         [Description("Alagoas")]

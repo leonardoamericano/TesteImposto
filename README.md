@@ -15,3 +15,5 @@ Exercício 6 - Corrigir os bugs da tela
 Exercício 7 - Regra de desconto para região sudeste
 
 Exercício 8 - Melhoria da complexidade ciclomática
+
+Exercício 9 - Melhoria técnica testes unitários

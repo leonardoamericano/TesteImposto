@@ -8,6 +8,7 @@ namespace Imposto.Tests.Data
         [TestMethod]
         public void TestMethod1()
         {
+            Assert.Fail();
         }
     }
 }

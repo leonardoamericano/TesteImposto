@@ -8,6 +8,7 @@ namespace Imposto.Tests.Entities
         [TestMethod]
         public void TestMethod1()
         {
+            Assert.Fail();
         }
     }
 }

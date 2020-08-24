@@ -109,8 +109,8 @@ namespace TesteImposto
 
         private void LimparCampos()
         {
-            this.cbbEstadoDestino.SelectedIndex = -1;
-            this.cbbEstadoOrigem.SelectedIndex = -1;
+            this.cbbEstadoDestino.SelectedIndex = 0;
+            this.cbbEstadoOrigem.SelectedIndex = 0;
             textBoxNomeCliente.Text = "";
             dataGridViewPedidos.DataSource = GetTablePedidos();
             pedido = new EmissaoNotaFiscalCommand();
@@ -121,22 +121,22 @@ namespace TesteImposto
         private void FormImposto_Load(object sender, EventArgs e)
         {
             this.cbbEstadoOrigem.DataSource = Util<EEstados>.EnumToList();
-            this.cbbEstadoOrigem.SelectedIndex = -1;
+            this.cbbEstadoOrigem.SelectedIndex = 0;
 
             this.cbbEstadoDestino.DataSource = Util<EEstados>.EnumToList();
-            this.cbbEstadoDestino.SelectedIndex = -1;
+            this.cbbEstadoDestino.SelectedIndex = 0;
         }
 
         private void cbbEstadoOrigem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbbEstadoOrigem.SelectedItem != null)
+            if (this.cbbEstadoOrigem.SelectedIndex > 0)
                 this.lblOrigem.Visible = false;
 
         }
 
         private void cbbEstadoDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cbbEstadoDestino.SelectedItem != null)
+            if (this.cbbEstadoDestino.SelectedIndex > 0)
                 this.lblDestino.Visible = false;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Flunt.Notifications;
+using Flunt.Validations;
 using Imposto.Core.Commands;
 using Imposto.Core.Entities;
 using Imposto.Core.Repositories;
@@ -28,6 +29,9 @@ namespace Imposto.Core.Handlers
 
         public ICommandResult Handle(EmissaoNotaFiscalCommand command)
         {
+            if (command==null)
+                return new CommandResult(false, "Não foi possível gravar a Nota Fiscal");
+
             //Fail Fast Validation
             command.Validate();
             if (command.Invalid)
@@ -47,10 +51,11 @@ namespace Imposto.Core.Handlers
                 return new CommandResult(false, "Não foi possível gravar a Nota Fiscal");
 
             //Gerar XML
-            _XmlService.Gravar(notaFiscal);
-
-            //Salvar as informações
-            //_repository.CreateNotaFiscal(notaFiscal);
+            if (_XmlService.Gravar(notaFiscal))
+            {
+                //Salvar as informações
+                //_repository.CreateNotaFiscal(notaFiscal);
+            }
 
             //Retornar informações
             return new CommandResult(true, "Nota Fiscal armazenada com sucesso");
